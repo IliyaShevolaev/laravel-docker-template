@@ -8,7 +8,7 @@ services:
             - ./src:/var/www/laravel
         depends_on:
             - php
-            - mysql
+            - postgres
 
     php:
         build:
@@ -17,14 +17,14 @@ services:
         volumes:
             - ./src:/var/www/laravel
 
-    mysql:
-        image: mysql:8.0
+    postgres:
+        image: postgres:16
         ports:
-            - "3316:3306"
+            - "5442:5432"
         volumes:
-            - "./db_data:/var/lib/mysql"
+            - "./db_data:/var/lib/postgresql/data"
         env_file:
-            - docker/mysql/mysql.env
+            - docker/postgres/postgres.env
     
     composer:
         build: 
