@@ -9,6 +9,7 @@ services:
         depends_on:
             - php
             - postgres
+            - vue
 
     php:
         build:
@@ -40,3 +41,14 @@ services:
         volumes:
             - "./src:/var/www/laravel"
         entrypoint: ["php", "/var/www/laravel/artisan"]
+
+    vue:
+        build:
+            context: ./vue-project
+            dockerfile: ../docker/dockerfiles/vue.Dockerfile
+        ports:
+            - "5177:5173"
+        volumes:
+            - ./vue-project:/app
+            - /app/node_modules
+        command: npm run dev -- --host
